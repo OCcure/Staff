@@ -1,0 +1,4 @@
+name: StaffPlugin
+version: '${version}'
+main: me.occure.staffplugin.StaffPlugin
+api-version: '1.20'
