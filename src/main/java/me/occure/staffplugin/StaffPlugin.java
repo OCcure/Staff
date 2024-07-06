@@ -7,8 +7,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class StaffPlugin extends JavaPlugin {
 
+    public static StaffPlugin instance;
+
     @Override
     public void onEnable() {
+        instance = this;
         Bukkit.getCommandMap().register("", new StaffCommand());
         getServer().getPluginManager().registerEvents(new StaffHandler(),this);
 

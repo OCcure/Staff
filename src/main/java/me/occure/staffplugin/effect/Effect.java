@@ -8,6 +8,6 @@ public interface Effect {
 
     void applyEffect(Location location);
 
-    void removeEffect(Entity entity);
+    void removeEffect();
 
 }
