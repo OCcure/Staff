@@ -15,5 +15,5 @@ public interface ModController <T extends Mob>{
 
     void attackEntity(LivingEntity target, List<T> Mod);
 
-    void surroundEntity(LivingEntity target, double distance, List<T> Mod);
+    void surroundEntity(LivingEntity target, List<T> Mod);
 }

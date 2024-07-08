@@ -5,6 +5,7 @@ import dev.lone.itemsadder.api.CustomStack;
 import me.occure.staffplugin.StaffPlugin;
 import me.occure.staffplugin.effect.CreateMagicCircle;
 import me.occure.staffplugin.effect.Effect;
+import me.occure.staffplugin.effect.sound.EffectSoundPlayer;
 import me.occure.staffplugin.mod.TestIronGolem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -36,6 +37,7 @@ public class StaffManager {
 
     public static IronGolem spwnGolem(Player player, Location location, int delay) {
         AtomicReference<IronGolem> golemRef = new AtomicReference<>();
+        EffectSoundPlayer soundPlayer = new EffectSoundPlayer();
 
         Effect effect = new CreateMagicCircle();
         effect.applyEffect(location);
@@ -46,7 +48,7 @@ public class StaffManager {
 
             playerGolems.computeIfAbsent(player.getUniqueId(), k -> new ArrayList<>()).add(golem);
 
-            Bukkit.getLogger().warning("" + playerGolems);
+            soundPlayer.playSound(player, location, 1.0f, 1.0f);
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(StaffPlugin.instance, effect::removeEffect,10L);
         }, delay);

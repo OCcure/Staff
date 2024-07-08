@@ -46,10 +46,8 @@ public class StaffHandler implements Listener {
                     if(target != null) {
                         List<IronGolem> golems = StaffManager.getPlayerGolems(player);
                         if (player.isSneaking()){
-                            Bukkit.getLogger().warning("134"+target);
-                            controller.surroundEntity(target, 5.0,golems);
+                            controller.surroundEntity(target,golems);
                         }else {
-                            Bukkit.getLogger().warning("132"+target);
                             controller.attackEntity(target, golems);
                         }
                     }
@@ -63,13 +61,9 @@ public class StaffHandler implements Listener {
         Vector direction = eyeLocation.getDirection();
         World world = player.getWorld();
 
-        Bukkit.getLogger().warning("Eye location: " + eyeLocation);
-        Bukkit.getLogger().warning("Direction: " + direction);
-
         RayTraceResult result = world.rayTraceEntities(eyeLocation, direction, 50, entity -> entity instanceof LivingEntity && !entity.equals(player));
 
         if (result != null) {
-            Bukkit.getLogger().warning("Hit entity: " + result.getHitEntity());
             if (result.getHitEntity() instanceof LivingEntity) {
                 return (LivingEntity) result.getHitEntity();
             }

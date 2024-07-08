@@ -34,7 +34,7 @@ public class CreateMagicCircle implements Effect{
 
             Bukkit.getScheduler().scheduleSyncRepeatingTask(StaffPlugin.instance, () -> {
 
-                double angle =offset.getAndAdd(15);
+                double angle =offset.getAndAdd(18);
                 float radians = (float)Math.toRadians(angle);
 
                 transformation.getLeftRotation().setAngleAxis(radians, 0,0,1);
