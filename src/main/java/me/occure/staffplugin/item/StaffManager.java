@@ -11,7 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -19,17 +18,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public class StaffManager {
 
     private static final Map<UUID, List<IronGolem>> playerGolems = new HashMap<>();
-
-    public static void staff(Player player){
-        CustomStack stack = CustomStack.getInstance("my_items:custom_staff");
-        if(stack != null){
-            ItemStack item = stack.getItemStack();
-            player.getInventory().addItem(item);
-        }else {
-            player.sendMessage("custom item null");
-        }
-
-    }
 
     public static IronGolem spwnGolem(Player player, Location location, int delay) {
         AtomicReference<IronGolem> golemRef = new AtomicReference<>();
@@ -51,6 +39,7 @@ public class StaffManager {
 
         return golemRef.get();
     }
+
     public static void removeGolem(Player player, IronGolem golem) {
         List<IronGolem> golems = playerGolems.get(player.getUniqueId());
         if (golems != null) {
