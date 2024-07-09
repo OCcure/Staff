@@ -5,7 +5,7 @@ import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.IronGolem;
 
-public class TestIronGolem {
+public class SpawnIronGolem {
 
     public static IronGolem spawnIronGolem(Location location) {
         World world = location.getWorld();

@@ -12,12 +12,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import java.util.List;
+import java.util.UUID;
 
 public class StaffHandler implements Listener {
 
@@ -36,7 +38,7 @@ public class StaffHandler implements Listener {
                         StaffManager.spwnGolem(player, spawnLoc,60);
                     } else {
                         Location targetLoc = StaffManager.getStaffInteractLoc(player);
-                        List<IronGolem> golems = StaffManager.getPlayerGolems(player);
+                        List<IronGolem> golems = StaffManager.getGolems(player);
                         if(golems != null && !golems.isEmpty()){
                             controller.moveToLoc(targetLoc, golems);
                         }
@@ -44,7 +46,7 @@ public class StaffHandler implements Listener {
                 } else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
                     LivingEntity target = getTargetEntity(player);
                     if(target != null) {
-                        List<IronGolem> golems = StaffManager.getPlayerGolems(player);
+                        List<IronGolem> golems = StaffManager.getGolems(player);
                         if (player.isSneaking()){
                             controller.surroundEntity(target,golems);
                         }else {
@@ -53,6 +55,23 @@ public class StaffHandler implements Listener {
                     }
 
                 }
+            }
+        }
+    }
+    @EventHandler
+    public void onGolemDeath(EntityDeathEvent event){
+        if(event.getEntity() instanceof IronGolem){
+            IronGolem golem = (IronGolem) event.getEntity();
+            UUID playerUUID = null;
+            for(UUID uuid : StaffManager.getPlayerGolems().keySet()) {
+                List<IronGolem> golems = StaffManager.getPlayerGolems().get(uuid);
+                if(golems != null && golems.contains(golem)){
+                    playerUUID = uuid;
+                    break;
+                }
+            }
+            if(playerUUID != null){
+                StaffManager.removeGolem(Bukkit.getPlayer(playerUUID), golem);
             }
         }
     }
