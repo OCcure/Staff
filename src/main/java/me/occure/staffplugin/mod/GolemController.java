@@ -22,16 +22,13 @@ public class GolemController implements ModController<IronGolem>{
                 golem.setAI(true);
                 golem.setTarget(null);
                 golem.getPathfinder().moveTo(location);
-                int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(StaffPlugin.instance, new Runnable() {
-                    @Override
-                    public void run() {
-                        if(golem.getLocation().distance(location) < 1.5 ){
-                            golem.setAI(false);
-                            Integer id = taskMap.get(golem);
-                            if(id != null){
-                                Bukkit.getScheduler().cancelTask(taskMap.get(golem));
-                                taskMap.remove(golem);
-                            }
+                int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(StaffPlugin.instance, () -> {
+                    if(golem.getLocation().distance(location) < 1.5 ){
+                        golem.setAI(false);
+                        Integer id = taskMap.get(golem);
+                        if(id != null){
+                            Bukkit.getScheduler().cancelTask(taskMap.get(golem));
+                            taskMap.remove(golem);
                         }
                     }
                 }, 0L, 20L);
