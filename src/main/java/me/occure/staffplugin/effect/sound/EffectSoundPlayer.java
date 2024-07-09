@@ -27,7 +27,8 @@ public class EffectSoundPlayer {
 
         packet.getSoundCategories()
                 .write(0, EnumWrappers.SoundCategory.MASTER);
-        packet.getSoundEffects().write(0, Sound.ENTITY_LIGHTNING_BOLT_IMPACT);
+        packet.getSoundEffects()
+                .write(0, Sound.ENTITY_LIGHTNING_BOLT_IMPACT);
         packet.getIntegers()
                 .write(0, (int) (location.getX() * 8.0))
                 .write(1, (int) (location.getY() * 8.0))
