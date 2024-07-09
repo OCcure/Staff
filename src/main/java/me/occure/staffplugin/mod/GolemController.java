@@ -3,8 +3,12 @@ package me.occure.staffplugin.mod;
 import me.occure.staffplugin.StaffPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.util.RayTraceResult;
+import org.bukkit.util.Vector;
 
 
 import java.util.HashMap;
@@ -63,4 +67,21 @@ public class GolemController implements ModController<IronGolem>{
         }
     }
 
+    @Override
+    public LivingEntity getTargetEntity(Player player) {
+
+            Location eyeLocation = player.getEyeLocation();
+            Vector direction = eyeLocation.getDirection();
+            World world = player.getWorld();
+
+            RayTraceResult result = world.rayTraceEntities(eyeLocation, direction, 50, entity ->
+                    entity instanceof LivingEntity && !entity.equals(player));
+
+            if (result != null) {
+                if (result.getHitEntity() instanceof LivingEntity) {
+                    return (LivingEntity) result.getHitEntity();
+                }
+            }
+            return null;
+    }
 }
